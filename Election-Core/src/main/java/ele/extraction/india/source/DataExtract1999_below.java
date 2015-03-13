@@ -18,7 +18,7 @@ import ele.extraction.util.ReadUtil;
  */
 public class DataExtract1999_below {
 	static Scanner sc = new Scanner(System.in);
-	static String fileName = "/home/dhanu/Desktop/elections/1999.pdf";
+	static String fileName = "/home/dhanu/Desktop/elections/1998.pdf";
 	static ReadUtil readUtil = new ReadUtil();
 
 	public static void main(String[] args) throws Exception {
@@ -76,7 +76,7 @@ public class DataExtract1999_below {
 							constitency.setTotalElectors(totalElectors);
 							constitency.setValidVotes(validVotes);
 							Candidate c = buildStructure(lineByLine, constitency);
-							System.out.println(c.getConstituency().getName() + ", " + c.getName() + ", "
+							System.out.println(c.getConstituency().getName() + ", " + c.getName() + ", " + c.getParty() + ", "
 									+ c.getConstituency().getValidVotes() + ", " + c.getVotes());
 						} else {
 							throw new RuntimeException();

@@ -7,7 +7,6 @@ import ele.extraction.util.ReadUtil;
 
 import java.io.FileNotFoundException;
 import java.io.IOException;
-
 import java.util.Arrays;
 import java.util.Scanner;
 
@@ -32,6 +31,8 @@ public class DataExtract2014_2009 {
 
 		// To get the count of electors and constituency.
 		String ele_cons_st = "";
+		String tot_valid_st = "";
+		int validVotes = 0;
 
 		try {
 			String[] lines = readUtil.getRawText(fileName, 1).split("\n");
@@ -54,10 +55,20 @@ public class DataExtract2014_2009 {
 					// Count the constituency
 					if (lineByLine.contains("constituency :")) {
 						ele_cons_st = lineByLine;
+						int count = 0;
+						while (true) {
+							if (lines[i + count].toLowerCase().contains("total:")) {
+								tot_valid_st = lines[i + count].toLowerCase();
+								break;
+							}
+							count++;
+						}
+						validVotes = Integer.parseInt(tot_valid_st.split("\\s\\s")[1].split("\\s")[0]);
 						countConstitency++;
 					}
 
-					String eachLine = getResultAsCSV(ele_cons_st, lines, i, lineByLine);
+					String eachLine = getResultAsCSV(ele_cons_st, lines, i, lineByLine, validVotes);
+
 					if (!eachLine.equals("")) {
 						System.out.println(eachLine);
 					}
@@ -93,13 +104,13 @@ public class DataExtract2014_2009 {
 	 * @param line
 	 *            each line.
 	 */
-	private static String getResultAsCSV(String ele_cons_st, String[] lines, int i, String line) {
+	private static String getResultAsCSV(String ele_cons_st, String[] lines, int i, String line, int validVotes) {
 		StringBuffer result = new StringBuffer();
 		if (line.contains("bjp") || line.contains("inc")) {
 			String[] split = ele_cons_st.split("\\s");
-
+			Constituency cons = new Constituency(getAttributes(ele_cons_st.split(":")[0].trim(), Types.CONSTITUENCY));
+			cons.setValidVotes(validVotes);
 			if (isInteger(line)) {
-				Constituency cons = new Constituency(getAttributes(ele_cons_st.split(":")[0].trim(), Types.CONSTITUENCY));
 
 				if (fileName.contains("2014")) {
 					cons.setTotalElectors(Integer.parseInt(split[split.length - 1]));
@@ -110,9 +121,8 @@ public class DataExtract2014_2009 {
 				Candidate c = buildStructure(line, cons);
 
 				result.append(c.getConstituency().getName() + ", " + c.getName() + ", " + c.getParty() + ", "
-						+ c.getConstituency().getTotalElectors() + ", " + c.getVotes());
+						+ c.getConstituency().getValidVotes() + ", " + c.getVotes());
 			} else {
-				Constituency cons = new Constituency(getAttributes(ele_cons_st.split(":")[0].trim(), Types.CONSTITUENCY));
 
 				if (fileName.contains("2014")) {
 					cons.setTotalElectors(Integer.parseInt(split[split.length - 1]));
@@ -125,7 +135,7 @@ public class DataExtract2014_2009 {
 				Candidate c = buildStructure(lin, cons);
 
 				result.append(c.getConstituency().getName() + ", " + c.getName() + ", " + c.getParty() + ", "
-						+ c.getConstituency().getTotalElectors() + ", " + c.getVotes());
+						+ c.getConstituency().getValidVotes() + ", " + c.getVotes());
 			}
 		}
 		return result.toString();
