@@ -4,10 +4,11 @@ import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.util.Arrays;
 import java.util.Scanner;
+
 import ele.extraction.domain.Candidate;
 import ele.extraction.domain.Constituency;
 import ele.extraction.domain.Types;
-import ele.extraction.domain.util.ReadUtil;
+import ele.extraction.util.ReadUtil;
 
 /**
  * Processing 2014 and 2009 Election dataSet

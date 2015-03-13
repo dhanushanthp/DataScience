@@ -1,4 +1,4 @@
-package ele.extraction.domain.util;
+package ele.extraction.util;
 
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
