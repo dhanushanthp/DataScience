@@ -6,5 +6,6 @@
   <packaging>pom</packaging>
   <modules>
   	<module>Election-Core</module>
+  	<module>Election-web</module>
   </modules>
 </project>
