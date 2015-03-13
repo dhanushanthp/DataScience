@@ -26,9 +26,9 @@ public class DataExtract2014_2009 {
 		getText(fileName, "tamil nadu");
 	}
 
-	private static void getText(String filePath, String constituency) throws IOException, FileNotFoundException {
-		boolean consChecker = false;
-		int countConsti = 0;
+	private static void getText(String filePath, String state) throws IOException, FileNotFoundException {
+		boolean stateChecker = false;
+		int countConstitency = 0;
 
 		// To get the count of electors and constituency.
 		String ele_cons_st = "";
@@ -40,21 +40,21 @@ public class DataExtract2014_2009 {
 			for (int i = 0; i < lines.length; i++) {
 				String lineByLine = lines[i].toLowerCase().trim();
 
-				// Enable when constituency found
-				if (lineByLine.contains(constituency.toLowerCase())) {
-					consChecker = true;
+				// Enable when state found
+				if (lineByLine.contains(state.toLowerCase())) {
+					stateChecker = true;
 				}
 
 				/**
 				 * If consCheck enable start to read line by line. If disables
 				 * stop the process.
 				 */
-				if (consChecker) {
+				if (stateChecker) {
 
 					// Count the constituency
 					if (lineByLine.contains("constituency :")) {
 						ele_cons_st = lineByLine;
-						countConsti++;
+						countConstitency++;
 					}
 
 					String eachLine = getResultAsCSV(ele_cons_st, lines, i, lineByLine);
@@ -70,8 +70,8 @@ public class DataExtract2014_2009 {
 				 * contain < constituency : >
 				 */
 				try {
-					if (lineByLine.split("\\s")[0].equals("1") && lineByLine.contains("constituency :") && (countConsti != 1)) {
-						consChecker = false;
+					if (lineByLine.split("\\s")[0].equals("1") && lineByLine.contains("constituency :") && (countConstitency != 1)) {
+						stateChecker = false;
 					}
 				} catch (Exception e) {
 					throw e;
