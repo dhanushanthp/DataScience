@@ -19,7 +19,7 @@ import java.util.Scanner;
 public class DataExtract2014_2009 {
 	static Scanner sc = new Scanner(System.in);
 	// static String fileName = "/home/dhanu/Desktop/2014.pdf";
-	static String fileName = "/Users/Dhanushanth/Google Drive/MSc Uni/CS5617 Data Science/Assignments/Data Files/LOK Shaba/33 - Constituency wise detailed result 2014.pdf";
+	static String fileName = "/Users/Dhanushanth/Google Drive/MSc Uni/CS5617 Data Science/Assignments/Data Files/LOK Shaba/25_ConstituencyWiseDetailedResult2009.pdf";
 	static ReadUtil readUtil = new ReadUtil();
 
 	public static void main(String[] args) throws Exception {
