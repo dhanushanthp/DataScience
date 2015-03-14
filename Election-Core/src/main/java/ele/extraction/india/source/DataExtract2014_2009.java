@@ -18,14 +18,16 @@ import java.util.Scanner;
  */
 public class DataExtract2014_2009 {
 	static Scanner sc = new Scanner(System.in);
-	static String fileName = "/home/dhanu/Desktop/2014.pdf";
+	// static String fileName = "/home/dhanu/Desktop/2014.pdf";
+	static String fileName = "/Users/Dhanushanth/Google Drive/MSc Uni/CS5617 Data Science/Assignments/Data Files/LOK Shaba/33 - Constituency wise detailed result 2014.pdf";
 	static ReadUtil readUtil = new ReadUtil();
 
 	public static void main(String[] args) throws Exception {
 		getText(fileName, "tamil nadu");
 	}
 
-	private static void getText(String filePath, String state) throws IOException, FileNotFoundException {
+	private static void getText(String filePath, String state)
+			throws IOException, FileNotFoundException {
 		boolean stateChecker = false;
 		int countConstitency = 0;
 
@@ -57,17 +59,20 @@ public class DataExtract2014_2009 {
 						ele_cons_st = lineByLine;
 						int count = 0;
 						while (true) {
-							if (lines[i + count].toLowerCase().contains("total:")) {
+							if (lines[i + count].toLowerCase().contains(
+									"total:")) {
 								tot_valid_st = lines[i + count].toLowerCase();
 								break;
 							}
 							count++;
 						}
-						validVotes = Integer.parseInt(tot_valid_st.split("\\s\\s")[1].split("\\s")[0]);
+						validVotes = Integer.parseInt(tot_valid_st
+								.split("\\s\\s")[1].split("\\s")[0]);
 						countConstitency++;
 					}
 
-					String eachLine = getResultAsCSV(ele_cons_st, lines, i, lineByLine, validVotes);
+					String eachLine = getResultAsCSV(ele_cons_st, lines, i,
+							lineByLine, validVotes);
 
 					if (!eachLine.equals("")) {
 						System.out.println(eachLine);
@@ -81,7 +86,9 @@ public class DataExtract2014_2009 {
 				 * contain < constituency : >
 				 */
 				try {
-					if (lineByLine.split("\\s")[0].equals("1") && lineByLine.contains("constituency :") && (countConstitency != 1)) {
+					if (lineByLine.split("\\s")[0].equals("1")
+							&& lineByLine.contains("constituency :")
+							&& (countConstitency != 1)) {
 						stateChecker = false;
 					}
 				} catch (Exception e) {
@@ -104,38 +111,49 @@ public class DataExtract2014_2009 {
 	 * @param line
 	 *            each line.
 	 */
-	private static String getResultAsCSV(String ele_cons_st, String[] lines, int i, String line, int validVotes) {
+	private static String getResultAsCSV(String ele_cons_st, String[] lines,
+			int i, String line, int validVotes) {
 		StringBuffer result = new StringBuffer();
 		if (line.contains("bjp") || line.contains("inc")) {
 			String[] split = ele_cons_st.split("\\s");
-			Constituency cons = new Constituency(getAttributes(ele_cons_st.split(":")[0].trim(), Types.CONSTITUENCY));
+			Constituency cons = new Constituency(getAttributes(
+					ele_cons_st.split(":")[0].trim(), Types.CONSTITUENCY));
 			cons.setValidVotes(validVotes);
 			if (isInteger(line)) {
 
 				if (fileName.contains("2014")) {
-					cons.setTotalElectors(Integer.parseInt(split[split.length - 1]));
+					cons.setTotalElectors(Integer
+							.parseInt(split[split.length - 1]));
 				} else {
-					cons.setTotalElectors(Integer.parseInt(split[split.length - 5]));
+					cons.setTotalElectors(Integer
+							.parseInt(split[split.length - 5]));
 				}
 
 				Candidate c = buildStructure(line, cons);
 
-				result.append(c.getConstituency().getName() + ", " + c.getName() + ", " + c.getParty() + ", "
-						+ c.getConstituency().getValidVotes() + ", " + c.getVotes());
+				result.append(c.getConstituency().getName() + ", "
+						+ c.getName() + ", " + c.getParty() + ", "
+						+ c.getConstituency().getValidVotes() + ", "
+						+ c.getVotes());
 			} else {
 
 				if (fileName.contains("2014")) {
-					cons.setTotalElectors(Integer.parseInt(split[split.length - 1]));
+					cons.setTotalElectors(Integer
+							.parseInt(split[split.length - 1]));
 				} else {
-					cons.setTotalElectors(Integer.parseInt(split[split.length - 5]));
+					cons.setTotalElectors(Integer
+							.parseInt(split[split.length - 5]));
 				}
 
-				String lin = (lines[i - 2].toLowerCase().trim() + " " + lines[i - 1].toLowerCase() + " " + line).trim();
+				String lin = (lines[i - 2].toLowerCase().trim() + " "
+						+ lines[i - 1].toLowerCase() + " " + line).trim();
 
 				Candidate c = buildStructure(lin, cons);
 
-				result.append(c.getConstituency().getName() + ", " + c.getName() + ", " + c.getParty() + ", "
-						+ c.getConstituency().getValidVotes() + ", " + c.getVotes());
+				result.append(c.getConstituency().getName() + ", "
+						+ c.getName() + ", " + c.getParty() + ", "
+						+ c.getConstituency().getValidVotes() + ", "
+						+ c.getVotes());
 			}
 		}
 		return result.toString();
@@ -146,7 +164,8 @@ public class DataExtract2014_2009 {
 	 *
 	 * @param input
 	 */
-	private static Candidate buildStructure(String input, Constituency constituency) {
+	private static Candidate buildStructure(String input,
+			Constituency constituency) {
 		String[] array = input.split("\\s\\s");
 		String name = getAttributes(array[array.length - 7], Types.NAME);
 
@@ -154,18 +173,23 @@ public class DataExtract2014_2009 {
 		name = name.replace(",", "");
 
 		int votes = Integer.parseInt(array[array.length - 4]);
-		String party = getAttributes(array[array.length - 6], Types.PARTY).toUpperCase();
+		String party = getAttributes(array[array.length - 6], Types.PARTY)
+				.toUpperCase();
 		Candidate candidate = new Candidate(name, votes, party, constituency);
 
 		/**
 		 * Additional informations.
 		 */
-		candidate.setAge(Integer.parseInt(getAttributes(array[array.length - 6], Types.AGE)));
+		candidate.setAge(Integer.parseInt(getAttributes(
+				array[array.length - 6], Types.AGE)));
 		candidate.setGeneralVotes(Integer.parseInt(array[array.length - 3]));
 		candidate.setPostalVotes(Integer.parseInt(array[array.length - 5]));
-		candidate.setSex(getAttributes(array[array.length - 7], Types.SEX).toUpperCase());
-		candidate.setAge(Integer.parseInt(getAttributes(array[array.length - 6], Types.AGE)));
-		candidate.setCategory(getAttributes(array[array.length - 6], Types.CATEGORY).toUpperCase());
+		candidate.setSex(getAttributes(array[array.length - 7], Types.SEX)
+				.toUpperCase());
+		candidate.setAge(Integer.parseInt(getAttributes(
+				array[array.length - 6], Types.AGE)));
+		candidate.setCategory(getAttributes(array[array.length - 6],
+				Types.CATEGORY).toUpperCase());
 
 		return candidate;
 	}
