@@ -2,6 +2,7 @@ package ele.extraction.india.source;
 
 import ele.extraction.domain.Candidate;
 import ele.extraction.domain.Constituency;
+import ele.extraction.domain.RequestObject;
 import ele.extraction.domain.Types;
 import ele.extraction.util.ReadUtil;
 
@@ -19,7 +20,7 @@ import java.util.Scanner;
 public class DataExtract2014_2009 {
 	static Scanner sc = new Scanner(System.in);
 	// static String fileName = "/home/dhanu/Desktop/2014.pdf";
-	static String fileName = "/Users/Dhanushanth/Google Drive/MSc Uni/CS5617 Data Science/Assignments/Data Files/LOK Shaba/25_ConstituencyWiseDetailedResult2009.pdf";
+	static String fileName = "/Users/Dhanushanth/Google Drive/MSc Uni/CS5617 Data Science/Assignments/Data Files/LOK Shaba/33 - Constituency wise detailed result 2014.pdf";
 	static ReadUtil readUtil = new ReadUtil();
 
 	public static void main(String[] args) throws Exception {
@@ -35,6 +36,7 @@ public class DataExtract2014_2009 {
 		String ele_cons_st = "";
 		String tot_valid_st = "";
 		int validVotes = 0;
+		int numberOfCandidates = 0;
 
 		try {
 			String[] lines = readUtil.getRawText(fileName, 1).split("\n");
@@ -74,8 +76,10 @@ public class DataExtract2014_2009 {
 						countConstitency++;
 					}
 
+					RequestObject req = new RequestObject();
+					req.setValidVotes(validVotes);
 					String eachLine = getResultAsCSV(ele_cons_st, lines, i,
-							lineByLine, validVotes);
+							lineByLine, req);
 
 					if (!eachLine.equals("")) {
 						System.out.println(eachLine);
@@ -115,13 +119,13 @@ public class DataExtract2014_2009 {
 	 *            each line.
 	 */
 	private static String getResultAsCSV(String ele_cons_st, String[] lines,
-			int i, String line, int validVotes) {
+			int i, String line, RequestObject req) {
 		StringBuffer result = new StringBuffer();
 		if (line.contains("bjp") || line.contains("inc")) {
 			String[] split = ele_cons_st.split("\\s");
 			Constituency cons = new Constituency(getAttributes(
 					ele_cons_st.split(":")[0].trim(), Types.CONSTITUENCY));
-			cons.setValidVotes(validVotes);
+			cons.setValidVotes(req.getValidVotes());
 			if (isInteger(line)) {
 
 				if (fileName.contains("2014")) {
@@ -248,8 +252,7 @@ public class DataExtract2014_2009 {
 	 */
 	private static boolean isInteger(String line) {
 		try {
-			String[] lists = line.split("\\s");
-
+			String[] lists = line.trim().split("\\s");
 			Integer.parseInt(lists[0]);
 		} catch (NumberFormatException e) {
 			return false;

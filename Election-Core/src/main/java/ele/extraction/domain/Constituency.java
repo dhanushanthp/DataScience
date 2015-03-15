@@ -4,6 +4,7 @@ public class Constituency {
 	private String name;
 	private int totalElectors;
 	private int validVotes;
+	private int numberOfCandidates;
 
 	public Constituency() {
 
@@ -35,5 +36,13 @@ public class Constituency {
 
 	public void setValidVotes(int validVotes) {
 		this.validVotes = validVotes;
+	}
+
+	public int getNumberOfCandidates() {
+		return numberOfCandidates;
+	}
+
+	public void setNumberOfCandidates(int numberOfCandidates) {
+		this.numberOfCandidates = numberOfCandidates;
 	}
 }
