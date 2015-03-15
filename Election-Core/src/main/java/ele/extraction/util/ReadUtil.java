@@ -24,7 +24,7 @@ public class ReadUtil {
 		pdfStripper = new PDFTextStripper();
 		pdfStripper.setStartPage(startPage);
 		pdfStripper.setEndPage(number_of_pages);
-		String parsedText = pdfStripper.getText(pdDoc);
+		String parsedText = pdfStripper.getText(pdDoc).toLowerCase();
 		return parsedText;
 	}
 }

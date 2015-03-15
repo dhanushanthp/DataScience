@@ -41,7 +41,7 @@ public class DataExtract2014_2009 {
 
 			// Read line by line.
 			for (int i = 0; i < lines.length; i++) {
-				String lineByLine = lines[i].toLowerCase().trim();
+				String lineByLine = lines[i].trim();
 
 				// Enable when state found
 				if (lineByLine.contains(state.toLowerCase())) {
@@ -58,16 +58,19 @@ public class DataExtract2014_2009 {
 					if (lineByLine.contains("constituency :")) {
 						ele_cons_st = lineByLine;
 						int count = 0;
+						// This loop to find the valid votes.
 						while (true) {
-							if (lines[i + count].toLowerCase().contains(
-									"total:")) {
-								tot_valid_st = lines[i + count].toLowerCase();
+							if (lines[i + count].contains("total:")) {
+								tot_valid_st = lines[i + count];
 								break;
 							}
 							count++;
 						}
-						validVotes = Integer.parseInt(tot_valid_st
-								.split("\\s\\s")[1].split("\\s")[0]);
+
+						// Sample String : < >
+						String[] splitByDspace = tot_valid_st.split("\\s\\s");
+						String[] splitBySpace = splitByDspace[1].split("\\s");
+						validVotes = Integer.parseInt(splitBySpace[0]);
 						countConstitency++;
 					}
 
