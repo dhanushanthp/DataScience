@@ -18,11 +18,15 @@ div.tooltip {
 
 path:hover {
 	fill: #473e3f;
-	cursor : crosshair;
+	cursor: crosshair;
 }
-
 </style>
 <script type="text/javascript" src="lib/d3/d3.js"></script>
+<link rel="stylesheet"
+	href="http://maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap.min.css">
+<script
+	src="http://maxcdn.bootstrapcdn.com/bootstrap/3.2.0/js/bootstrap.min.js"></script>
+<script src="http://code.jquery.com/jquery-2.1.3.min.js"></script>
 <script type="text/javascript" src="lib/colorbrewer/colorbrewer.js"></script>
 <link type="text/css" rel="stylesheet" media="all"
 	href="lib/colorbrewer/colorbrewer.css">
@@ -329,25 +333,31 @@ path:hover {
 			return d3.min(array);
 		});
 
-		d3.select("body").selectAll("path").each(function(d, i) {
-			district_id = d3.select(this).attr("entity_id");
-			state_id = d3.select(this.parentNode).attr("entity_id");
-			title = d3.select(this).attr("title");
-			if (!district_id || !state_id) {
-			} else {
-				d3.select(this).attr('pop', pop[state_id][district_id]);
-				d3.select(this).attr('pop_bjp', pop_bjp[state_id][district_id]);
-				d3.select(this).attr('pop_inc', pop_inc[state_id][district_id]);
-			}
-		});
+		d3.select("body").selectAll("path")
+				.each(
+						function(d, i) {
+							district_id = d3.select(this).attr("entity_id");
+							state_id = d3.select(this.parentNode).attr(
+									"entity_id");
+							title = d3.select(this).attr("title");
+							if (!district_id || !state_id) {
+							} else {
+								d3.select(this).attr('pop',
+										pop[state_id][district_id]);
+								d3.select(this).attr('pop_bjp',
+										pop_bjp[state_id][district_id]);
+								d3.select(this).attr('pop_inc',
+										pop_inc[state_id][district_id]);
+							}
+						});
 
 		d3.select("body").selectAll("path").attr("fill", function(d, i) {
 			var bjp = d3.select(this).attr("pop_inc");
 			var inc = d3.select(this).attr("pop_bjp");
-			
-			if(inc > bjp){
+
+			if (inc > bjp) {
 				return '#6CCECB';
-			}else{
+			} else {
 				return '#EF7126';
 			}
 		})
@@ -368,7 +378,7 @@ path:hover {
 
 					div.transition().duration(100).style("opacity", .75);
 					div.html(
-							"<strong>"+state + "</strong><br/>" + "<br/>"
+							"<strong>" + state + "</strong><br/>" + "<br/>"
 									+ "INC : " + population_f + "<br/>"
 									+ "BJP : " + population_m + "<br/>"
 									+ "Total : " + population + "<br/>").style(
