@@ -1,24 +1,26 @@
 <html>
 <head>
 <meta charset="utf-8">
-<title>Sex Ratio : India Census 2011</title>
+<title>Indian Election</title>
 <style>
 div.tooltip {
 	position: absolute;
 	text-align: center;
 	width: 120px;
-	height: 120px;
+	height: 90px;
 	padding: 2px;
+	padding-top: 3px;
 	font: 14px sans-serif;
 	background: lightgrey;
-	border: 0px;
+	border: 2px;
 	border-radius: 12px;
 	pointer-events: none;
 }
 
 path:hover {
-	fill: red;
+	fill: #473e3f;
 }
+
 </style>
 <script type="text/javascript" src="lib/d3/d3.js"></script>
 <script type="text/javascript" src="lib/colorbrewer/colorbrewer.js"></script>
@@ -200,8 +202,8 @@ path:hover {
 			return arr;
 		}
 		var pop = Create2DArray(1000);
-		var pop_m = Create2DArray(1000)
-		var pop_f = Create2DArray(1000);
+		var pop_bjp = Create2DArray(1000)
+		var pop_inc = Create2DArray(1000);
 
 		pop[1][1] = 875564;
 		pop[2][1] = 518844;
@@ -238,76 +240,76 @@ path:hover {
 		pop[33][1] = 3725697;
 		pop[34][1] = 55616;
 		pop[35][1] = 36819;
-		pop_m[1][1] = 475126;
-		pop_m[2][1] = 260848;
-		pop_m[3][1] = 1212995;
-		pop_m[4][1] = 580282;
-		pop_m[5][1] = 168335;
-		pop_m[6][1] = 298919;
-		pop_m[7][1] = 1960677;
-		pop_m[8][1] = 1043730;
-		pop_m[9][1] = 1835740;
-		pop_m[10][1] = 2057669;
-		pop_m[11][1] = 24513;
-		pop_m[12][1] = 29361;
-		pop_m[13][1] = 132062;
-		pop_m[14][1] = 183081;
-		pop_m[15][1] = 44567;
-		pop_m[16][1] = 877930;
-		pop_m[17][1] = 324900;
-		pop_m[18][1] = 452965;
-		pop_m[19][1] = 934796;
-		pop_m[20][1] = 683984;
-		pop_m[21][1] = 748332;
-		pop_m[22][1] = 334336;
-		pop_m[23][1] = 361685;
-		pop_m[24][1] = 1096343;
-		pop_m[25][1] = 25639;
-		pop_m[26][1] = 193178;
-		pop_m[27][1] = 834866;
-		pop_m[28][1] = 1366964;
-		pop_m[29][1] = 2427104;
-		pop_m[30][1] = 417536;
-		pop_m[31][1] = 33106;
-		pop_m[32][1] = 626617;
-		pop_m[33][1] = 1878559;
-		pop_m[34][1] = 27277;
-		pop_m[35][1] = 20705;
-		pop_f[1][1] = 400438;
-		pop_f[2][1] = 257996;
-		pop_f[3][1] = 1086031;
-		pop_f[4][1] = 474404;
-		pop_f[5][1] = 161351;
-		pop_f[6][1] = 259971;
-		pop_f[7][1] = 1690584;
-		pop_f[8][1] = 925790;
-		pop_f[9][1] = 1628488;
-		pop_f[10][1] = 1865111;
-		pop_f[11][1] = 18841;
-		pop_f[12][1] = 20589;
-		pop_f[13][1] = 118609;
-		pop_f[14][1] = 171891;
-		pop_f[15][1] = 41190;
-		pop_f[16][1] = 846689;
-		pop_f[17][1] = 318023;
-		pop_f[18][1] = 434034;
-		pop_f[19][1] = 907238;
-		pop_f[20][1] = 638403;
-		pop_f[21][1] = 730501;
-		pop_f[22][1] = 324703;
-		pop_f[23][1] = 326267;
-		pop_f[24][1] = 993970;
-		pop_f[25][1] = 26417;
-		pop_f[26][1] = 149675;
-		pop_f[27][1] = 811311;
-		pop_f[28][1] = 1370774;
-		pop_f[29][1] = 2351335;
-		pop_f[30][1] = 400225;
-		pop_f[31][1] = 31323;
-		pop_f[32][1] = 675983;
-		pop_f[33][1] = 1847138;
-		pop_f[34][1] = 28339;
-		pop_f[35][1] = 16114;
+		pop_bjp[1][1] = 475126;
+		pop_bjp[2][1] = 260848;
+		pop_bjp[3][1] = 1212995;
+		pop_bjp[4][1] = 580282;
+		pop_bjp[5][1] = 168335;
+		pop_bjp[6][1] = 298919;
+		pop_bjp[7][1] = 1960677;
+		pop_bjp[8][1] = 1043730;
+		pop_bjp[9][1] = 1835740;
+		pop_bjp[10][1] = 2057669;
+		pop_bjp[11][1] = 24513;
+		pop_bjp[12][1] = 29361;
+		pop_bjp[13][1] = 132062;
+		pop_bjp[14][1] = 183081;
+		pop_bjp[15][1] = 44567;
+		pop_bjp[16][1] = 877930;
+		pop_bjp[17][1] = 324900;
+		pop_bjp[18][1] = 452965;
+		pop_bjp[19][1] = 934796;
+		pop_bjp[20][1] = 683984;
+		pop_bjp[21][1] = 748332;
+		pop_bjp[22][1] = 334336;
+		pop_bjp[23][1] = 361685;
+		pop_bjp[24][1] = 1096343;
+		pop_bjp[25][1] = 25639;
+		pop_bjp[26][1] = 193178;
+		pop_bjp[27][1] = 834866;
+		pop_bjp[28][1] = 1366964;
+		pop_bjp[29][1] = 2427104;
+		pop_bjp[30][1] = 417536;
+		pop_bjp[31][1] = 33106;
+		pop_bjp[32][1] = 626617;
+		pop_bjp[33][1] = 1878559;
+		pop_bjp[34][1] = 27277;
+		pop_bjp[35][1] = 20705;
+		pop_inc[1][1] = 400438;
+		pop_inc[2][1] = 257996;
+		pop_inc[3][1] = 1086031;
+		pop_inc[4][1] = 474404;
+		pop_inc[5][1] = 161351;
+		pop_inc[6][1] = 259971;
+		pop_inc[7][1] = 1690584;
+		pop_inc[8][1] = 925790;
+		pop_inc[9][1] = 1628488;
+		pop_inc[10][1] = 1865111;
+		pop_inc[11][1] = 18841;
+		pop_inc[12][1] = 20589;
+		pop_inc[13][1] = 118609;
+		pop_inc[14][1] = 171891;
+		pop_inc[15][1] = 41190;
+		pop_inc[16][1] = 846689;
+		pop_inc[17][1] = 318023;
+		pop_inc[18][1] = 434034;
+		pop_inc[19][1] = 907238;
+		pop_inc[20][1] = 638403;
+		pop_inc[21][1] = 730501;
+		pop_inc[22][1] = 324703;
+		pop_inc[23][1] = 326267;
+		pop_inc[24][1] = 993970;
+		pop_inc[25][1] = 26417;
+		pop_inc[26][1] = 149675;
+		pop_inc[27][1] = 811311;
+		pop_inc[28][1] = 1370774;
+		pop_inc[29][1] = 2351335;
+		pop_inc[30][1] = 400225;
+		pop_inc[31][1] = 31323;
+		pop_inc[32][1] = 675983;
+		pop_inc[33][1] = 1847138;
+		pop_inc[34][1] = 28339;
+		pop_inc[35][1] = 16114;
 
 		d3.select("body").select("svg").select("text.title").data([ 1 ])
 				.enter().append("text").attr("class", "title").attr(
@@ -334,21 +336,20 @@ path:hover {
 			if (!district_id || !state_id) {
 			} else {
 				d3.select(this).attr('pop', pop[state_id][district_id]);
-				d3.select(this).attr('pop_m', pop_m[state_id][district_id]);
-				d3.select(this).attr('pop_f', pop_f[state_id][district_id]);
+				d3.select(this).attr('pop_bjp', pop_bjp[state_id][district_id]);
+				d3.select(this).attr('pop_inc', pop_inc[state_id][district_id]);
 			}
 		});
-		//var rScale = d3.scale.threshold().domain([0.70,1.00,1.1,1.25]).range(["white","green","yellow", "orange", "red"]);
-		var rScale = d3.scale.threshold().domain(
-				[ 0.7, 0.8, 0.9, 1.00, 1.1, 1.2, 1.25 ]).range(
-				colorbrewer.YlOrBr[8]);
+
 		d3.select("body").selectAll("path").attr("fill", function(d, i) {
-			var male = d3.select(this).attr("pop_f");
-			var female = d3.select(this).attr("pop_m");
-			var ratio = female / male;
-			var color = rScale(ratio);
-			console.log(color);
-			return color;
+			var bjp = d3.select(this).attr("pop_inc");
+			var inc = d3.select(this).attr("pop_bjp");
+			
+			if(inc > bjp){
+				return '#6CCECB';
+			}else{
+				return '#EF7126';
+			}
 		})
 
 		var el = d3.select("body").selectAll("path").on(
@@ -358,20 +359,18 @@ path:hover {
 					//d3.select(this).style("fill","blue");
 					var dist = d3.select(this).attr("title");
 					var population = d3.select(this).attr("pop");
-					var population_m = d3.select(this).attr("pop_m");
-					var population_f = d3.select(this).attr("pop_f");
+					var population_m = d3.select(this).attr("pop_bjp");
+					var population_f = d3.select(this).attr("pop_inc");
 					var state = d3.select(this.parentNode).attr("title");
 					var dist_code = d3.select(this).attr("entity_id");
 					var state_code = d3.select(this.parentNode).attr(
 							"entity_id");
-					var ratio = population_f / population_m;
 
 					div.transition().duration(100).style("opacity", .75);
 					div.html(
-							state + "<br/>" + "<br/>" + "<bold>Ratio : </bold>"
-									+ ratio.toFixed(3) + "</bold><br/>"
-									+ "Female : " + population_f + "<br/>"
-									+ "Male : " + population_m + "<br/>"
+							"<strong>"+state + "</strong><br/>" + "<br/>"
+									+ "INC : " + population_f + "<br/>"
+									+ "BJP : " + population_m + "<br/>"
 									+ "Total : " + population + "<br/>").style(
 							"left", (d3.event.pageX - 50) + "px").style("top",
 							(d3.event.pageY - 132) + "px");
