@@ -18,7 +18,7 @@ import ele.extraction.util.ReadUtil;
  */
 public class DataExtract1999_below {
 	static Scanner sc = new Scanner(System.in);
-	static String fileName = "/home/dhanu/Desktop/elections/1998.pdf";
+	static String fileName = "/Users/Dhanushanth/Google Drive/MSc Uni/CS5617 Data Science/Assignments/Data Files/LOK Shaba/98/Vol_I_LS_98.pdf";
 	static ReadUtil readUtil = new ReadUtil();
 
 	public static void main(String[] args) throws Exception {
