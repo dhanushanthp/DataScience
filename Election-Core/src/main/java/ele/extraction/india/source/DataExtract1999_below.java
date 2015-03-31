@@ -18,7 +18,7 @@ import ele.extraction.util.ReadUtil;
  */
 public class DataExtract1999_below {
 	static Scanner sc = new Scanner(System.in);
-	static String fileName = "/Users/Dhanushanth/Google Drive/MSc Uni/CS5617 Data Science/Assignments/Data Files/LOK Shaba/98/Vol_I_LS_98.pdf";
+	static String fileName = "/Users/Dhanushanth/Google Drive/MSc Uni/CS5617 Data Science/Projects/Data Files/Extracted LOK Shaba Results/1998.pdf";
 	static ReadUtil readUtil = new ReadUtil();
 
 	public static void main(String[] args) throws Exception {
@@ -44,13 +44,13 @@ public class DataExtract1999_below {
 				String lineByLine = lines[i].toLowerCase().trim();
 
 				// Enable when constituency found
-				if (lineByLine.contains(state.toLowerCase())) {
+				if (lineByLine.contains(state.toLowerCase()) && lineByLine.length() == state.length()) {
 					stateChecker = true;
 				}
 				if (stateChecker) {
 
 					// Count the constituency
-					if (lineByLine.contains("constituency")) {
+					if (lineByLine.startsWith("constituency")) {
 						constituency = getAttributes(lineByLine, Types.CONSTITUENCY);
 						int count = 0;
 						// This is to get the total votes and electors count.
