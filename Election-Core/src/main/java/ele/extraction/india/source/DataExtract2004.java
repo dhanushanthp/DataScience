@@ -19,7 +19,7 @@ import ele.extraction.util.ReadUtil;
  */
 public class DataExtract2004 {
 	static Scanner sc = new Scanner(System.in);
-	static String fileName = Config.getPath() + "2004.pdf";
+	static String fileName = Config.getPath() + "1999.pdf";
 	static ReadUtil readUtil = new ReadUtil();
 
 	public static void main(String[] args) throws Exception {
@@ -103,8 +103,9 @@ public class DataExtract2004 {
 		String[] array = input.split("\\s");
 		String name = getAttributes(input, Types.NAME);
 		name = name.replace(",", "");
-		//TODO This need to be fixed.
-		int votes = Integer.parseInt(array[0]);
+		
+		//TODO Still having probelm.
+		int votes = Integer.parseInt(array[0].substring(0, 5));
 		String party = array[array.length - 1].toUpperCase();
 
 		Candidate candidate = new Candidate(name, votes, party, constituency);
