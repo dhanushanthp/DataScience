@@ -12,7 +12,7 @@ import ele.extraction.india.conf.Config;
 import ele.extraction.util.ReadUtil;
 
 /**
- * Processing 1999 and 1998 and 1996 and 1991 and 1989 and Election dataSet
+ * Processing 2004 and Election dataSet
  * 
  * @author Dhanushanth
  *
@@ -59,13 +59,14 @@ public class DataExtract2004 {
 						// process search through to find total votes and
 						// electors.
 						while (true) {
-							if (lines[i + count].toLowerCase().contains("Total Valid Votes for the AC :".toLowerCase())) {
+							if (lines[i + count].toLowerCase().contains("Total Valid Votes for the PC:".toLowerCase())) {
 								ele_cons_st = lines[i + count].toLowerCase();
 								break;
 							}
 							count++;
 						}
-						validVotes = Integer.parseInt(ele_cons_st.replace("Total Valid Votes for the AC :".toLowerCase(), ""));
+						String votes = ele_cons_st.replace("Total Valid Votes for the PC: ".toLowerCase(), "").split("-")[0];
+						validVotes = Integer.parseInt(votes.substring(0, votes.length() - String.valueOf(countConstituency).length()));
 						countConstituency++;
 					}
 
@@ -77,12 +78,13 @@ public class DataExtract2004 {
 							System.out.println(c.getConstituency().getName() + ", " + c.getName() + ", " + c.getParty() + ", "
 									+ c.getConstituency().getValidVotes() + ", " + c.getVotes());
 						} else {
-							throw new RuntimeException();
+							System.out.println("This is : Valid Postal Ballots for each candidate in the PC");
+//							throw new RuntimeException();
 						}
 					}
 				}
 
-				if (lineByLine.contains("constituency  1") && (countConstituency != 1)) {
+				if (lineByLine.contains("state-ut code & name :".toLowerCase()) && (countConstituency != 0)) {
 					stateChecker = false;
 				}
 
@@ -101,6 +103,7 @@ public class DataExtract2004 {
 		String[] array = input.split("\\s");
 		String name = getAttributes(input, Types.NAME);
 		name = name.replace(",", "");
+		//TODO This need to be fixed.
 		int votes = Integer.parseInt(array[0]);
 		String party = array[array.length - 1].toUpperCase();
 
