@@ -19,7 +19,7 @@ import ele.extraction.util.ReadUtil;
  */
 public class DataExtract2004 {
 	static Scanner sc = new Scanner(System.in);
-	static String fileName = Config.getPath("lin") + "1998.pdf";
+	static String fileName = Config.getPath("lin") + "2004.pdf";
 	static ReadUtil readUtil = new ReadUtil();
 
 	public static void main(String[] args) throws Exception {
@@ -45,13 +45,13 @@ public class DataExtract2004 {
 				String lineByLine = lines[i].toLowerCase().trim();
 
 				// Enable when constituency found
-				if (lineByLine.startsWith(state.toLowerCase()) && lines[i+1].toLowerCase().trim().startsWith("constituency")) {
+				if (lineByLine.contains(state.toLowerCase())) {
 					stateChecker = true;
 				}
 				if (stateChecker) {
 
 					// Count the constituency
-					if (lineByLine.startsWith("constituency")) {
+					if (lineByLine.contains("PC No. & Name :".toLowerCase())) {
 						constituency = getAttributes(lineByLine, Types.CONSTITUENCY);
 						int count = 0;
 						// This is to get the total votes and electors count.
@@ -59,22 +59,19 @@ public class DataExtract2004 {
 						// process search through to find total votes and
 						// electors.
 						while (true) {
-							if (lines[i + count].toLowerCase().contains("electors")
-									&& lines[i + count].toLowerCase().contains("poll percentage")) {
+							if (lines[i + count].toLowerCase().contains("Total Valid Votes for the AC :".toLowerCase())) {
 								ele_cons_st = lines[i + count].toLowerCase();
 								break;
 							}
 							count++;
 						}
-						validVotes = Integer.parseInt(ele_cons_st.split("\\s\\s")[1].split("\\s")[2].replace("voters", ""));
-						totalElectors = Integer.parseInt(ele_cons_st.split("\\s\\s")[0].split("\\s")[2]);
+						validVotes = Integer.parseInt(ele_cons_st.replace("Total Valid Votes for the AC :".toLowerCase(), ""));
 						countConstituency++;
 					}
 
 					if (lineByLine.contains("bjp") || lineByLine.contains("inc")) {
 						if (isInteger(lineByLine)) {
 							Constituency constitency = new Constituency(constituency);
-							constitency.setTotalElectors(totalElectors);
 							constitency.setValidVotes(validVotes);
 							Candidate c = buildStructure(lineByLine, constitency);
 							System.out.println(c.getConstituency().getName() + ", " + c.getName() + ", " + c.getParty() + ", "
@@ -104,13 +101,13 @@ public class DataExtract2004 {
 		String[] array = input.split("\\s");
 		String name = getAttributes(input, Types.NAME);
 		name = name.replace(",", "");
-		int votes = Integer.parseInt(array[array.length - 2]);
-		String party = array[array.length - 3].toUpperCase();
+		int votes = Integer.parseInt(array[0]);
+		String party = array[array.length - 1].toUpperCase();
 
 		Candidate candidate = new Candidate(name, votes, party, constituency);
 
 		// Additional information
-		candidate.setSex(array[array.length - 4].toUpperCase());
+		candidate.setSex("Not Assigned");
 		return candidate;
 	}
 
@@ -130,17 +127,23 @@ public class DataExtract2004 {
 		int size = inputArray.length;
 
 		if (type == Types.NAME) {
-			start = 2;
-			end = size - 4;
+			start = 1;
+			end = size - 1;
 		} else if (type == Types.CONSTITUENCY) {
-			start = 3;
-			end = size;
+			start = 0;
+			end = size-4;
 		}
 
 		String[] name = Arrays.copyOfRange(inputArray, start, end);
 
 		for (String string : name) {
+			if(string.contains("-")){
+				nameSt.append(string.split("-")[1] + " ");
+			}else if(string.contains("pc")){
+				nameSt.append(string.replace("pc", "") + " ");
+			}else{
 			nameSt.append(string + " ");
+			}
 		}
 
 		return nameSt.toString().trim();
