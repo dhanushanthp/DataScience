@@ -12,18 +12,18 @@ import ele.extraction.india.conf.Config;
 import ele.extraction.util.ReadUtil;
 
 /**
- * Processing 1998 and Election dataSet
+ * Processing 1996 and below Election dataSet
  * 
  * @author Dhanushanth
  *
  */
-public class DataExtract1998 {
+public class DataExtract1996 {
 	static Scanner sc = new Scanner(System.in);
-	static String fileName = Config.getPath("lin") + "1998.pdf";
+	static String fileName = Config.getPath("lin") + "1971.pdf";
 	static ReadUtil readUtil = new ReadUtil();
 
 	public static void main(String[] args) throws Exception {
-		getText(fileName, "tamil nadu");
+		getText(fileName, "punjab");
 	}
 
 	private static void getText(String filePat, String state) throws IOException, FileNotFoundException {
@@ -66,8 +66,7 @@ public class DataExtract1998 {
 							}
 							count++;
 						}
-						validVotes = Integer.parseInt(ele_cons_st.split("\\s\\s")[1].split("\\s")[2].replace("voters", ""));
-						totalElectors = Integer.parseInt(ele_cons_st.split("\\s\\s")[0].split("\\s")[2]);
+						validVotes = Integer.parseInt(ele_cons_st.split("\\s\\s")[1].split("\\s")[3].replace("voters", ""));
 						countConstituency++;
 					}
 
@@ -83,11 +82,13 @@ public class DataExtract1998 {
 							throw new RuntimeException();
 						}
 					}
+					
+					if (lineByLine.contains("constituency  : 1 .") && (countConstituency != 1)) {
+						stateChecker = false;
+					}
 				}
 
-				if (lineByLine.contains("constituency  1") && (countConstituency != 1)) {
-					stateChecker = false;
-				}
+				
 
 			}
 		} catch (IOException e) {
@@ -133,7 +134,7 @@ public class DataExtract1998 {
 			start = 2;
 			end = size - 4;
 		} else if (type == Types.CONSTITUENCY) {
-			start = 3;
+			start = 5;
 			end = size;
 		}
 
