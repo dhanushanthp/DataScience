@@ -4,6 +4,7 @@ import ele.extraction.domain.Candidate;
 import ele.extraction.domain.Constituency;
 import ele.extraction.domain.RequestObject;
 import ele.extraction.domain.Types;
+import ele.extraction.india.conf.Config;
 import ele.extraction.util.ReadUtil;
 
 import java.io.FileNotFoundException;
@@ -19,12 +20,11 @@ import java.util.Scanner;
  */
 public class DataExtract2014_2009 {
 	static Scanner sc = new Scanner(System.in);
-	// static String fileName = "/home/dhanu/Desktop/2014.pdf";
-	static String fileName = "/Users/Dhanushanth/Google Drive/MSc Uni/CS5617 Data Science/Projects/Data Files/Extracted LOK Shaba Results/2009.pdf";
+	static String fileName = Config.getPath("lin") + "2009.pdf";
 	static ReadUtil readUtil = new ReadUtil();
 
 	public static void main(String[] args) throws Exception {
-		getText(fileName, "tamil nadu");
+		getText(fileName, "SIKKIM");
 	}
 
 	private static void getText(String filePath, String state)

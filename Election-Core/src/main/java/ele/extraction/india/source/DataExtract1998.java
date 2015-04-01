@@ -8,6 +8,7 @@ import java.util.Scanner;
 import ele.extraction.domain.Candidate;
 import ele.extraction.domain.Constituency;
 import ele.extraction.domain.Types;
+import ele.extraction.india.conf.Config;
 import ele.extraction.util.ReadUtil;
 
 /**
@@ -16,9 +17,9 @@ import ele.extraction.util.ReadUtil;
  * @author Dhanushanth
  *
  */
-public class DataExtract1999_below {
+public class DataExtract1998 {
 	static Scanner sc = new Scanner(System.in);
-	static String fileName = "/Users/Dhanushanth/Google Drive/MSc Uni/CS5617 Data Science/Projects/Data Files/Extracted LOK Shaba Results/1998.pdf";
+	static String fileName = Config.getPath("lin") + "1998.pdf";
 	static ReadUtil readUtil = new ReadUtil();
 
 	public static void main(String[] args) throws Exception {
@@ -44,7 +45,7 @@ public class DataExtract1999_below {
 				String lineByLine = lines[i].toLowerCase().trim();
 
 				// Enable when constituency found
-				if (lineByLine.contains(state.toLowerCase()) && lineByLine.length() == state.length()) {
+				if (lineByLine.startsWith(state.toLowerCase()) && lines[i+1].toLowerCase().trim().startsWith("constituency")) {
 					stateChecker = true;
 				}
 				if (stateChecker) {
