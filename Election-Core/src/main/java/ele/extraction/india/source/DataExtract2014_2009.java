@@ -24,11 +24,12 @@ public class DataExtract2014_2009 {
 	static ReadUtil readUtil = new ReadUtil();
 
 	public static void main(String[] args) throws Exception {
-		getText(fileName, "andhra pradesh");
+		getText("bihar");
 	}
 
-	private static void getText(String filePath, String state)
-			throws IOException, FileNotFoundException {
+	public static String getText(String state) throws IOException,
+			FileNotFoundException {
+		StringBuilder result = new StringBuilder();
 		boolean stateChecker = false;
 		int countConstitency = 0;
 
@@ -82,6 +83,7 @@ public class DataExtract2014_2009 {
 							lineByLine, req);
 
 					if (!eachLine.equals("")) {
+						result.append(eachLine + "\n");
 						System.out.println(eachLine);
 					}
 
@@ -105,6 +107,8 @@ public class DataExtract2014_2009 {
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
+
+		return result.toString();
 	}
 
 	/**

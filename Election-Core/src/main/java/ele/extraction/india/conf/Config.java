@@ -13,4 +13,8 @@ public class Config {
 		}
 		return new String();
 	}
+
+	public static String getWritePath() {
+		return "/Users/Dhanushanth/Google Drive/MSc Uni/CS5617 Data Science/Projects/Data Files/Csv/";
+	}
 }

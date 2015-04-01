@@ -1,8 +1,12 @@
 package ele.extraction.util;
 
+import java.io.BufferedReader;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
+import java.io.FileReader;
 import java.io.IOException;
+import java.util.ArrayList;
+import java.util.List;
 
 import org.apache.pdfbox.cos.COSDocument;
 import org.apache.pdfbox.pdfparser.PDFParser;
@@ -25,6 +29,30 @@ public class ReadUtil {
 		pdfStripper.setStartPage(startPage);
 		pdfStripper.setEndPage(number_of_pages);
 		String parsedText = pdfStripper.getText(pdDoc).toLowerCase();
+		cosDoc.close();
+		pdDoc.close();
 		return parsedText;
+	}
+
+	public static List<String> geTRawText() {
+		BufferedReader br = null;
+		List<String> constituency = new ArrayList<String>();
+		try {
+			String sCurrentLine;
+			br = new BufferedReader(new FileReader("constituencies.txt"));
+			while ((sCurrentLine = br.readLine()) != null) {
+				constituency.add(sCurrentLine);
+			}
+		} catch (IOException e) {
+			e.printStackTrace();
+		} finally {
+			try {
+				if (br != null)
+					br.close();
+			} catch (IOException ex) {
+				ex.printStackTrace();
+			}
+		}
+		return constituency;
 	}
 }
