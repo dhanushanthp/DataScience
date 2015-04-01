@@ -19,11 +19,11 @@ import ele.extraction.util.ReadUtil;
  */
 public class DataExtract1998 {
 	static Scanner sc = new Scanner(System.in);
-	static String fileName = Config.getPath("lin") + "1998.pdf";
+	static String fileName = Config.getPath() + "1998.pdf";
 	static ReadUtil readUtil = new ReadUtil();
 
 	public static void main(String[] args) throws Exception {
-		getText(fileName, "tamil nadu");
+		getText(fileName, "andhra pradesh");
 	}
 
 	private static void getText(String filePat, String state) throws IOException, FileNotFoundException {

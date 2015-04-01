@@ -20,11 +20,11 @@ import java.util.Scanner;
  */
 public class DataExtract2014_2009 {
 	static Scanner sc = new Scanner(System.in);
-	static String fileName = Config.getPath("lin") + "2009.pdf";
+	static String fileName = Config.getPath() + "2009.pdf";
 	static ReadUtil readUtil = new ReadUtil();
 
 	public static void main(String[] args) throws Exception {
-		getText(fileName, "SIKKIM");
+		getText(fileName, "andhra pradesh");
 	}
 
 	private static void getText(String filePath, String state)

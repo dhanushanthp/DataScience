@@ -19,7 +19,7 @@ import ele.extraction.util.ReadUtil;
  */
 public class DataExtract2004 {
 	static Scanner sc = new Scanner(System.in);
-	static String fileName = Config.getPath("lin") + "2004.pdf";
+	static String fileName = Config.getPath() + "2004.pdf";
 	static ReadUtil readUtil = new ReadUtil();
 
 	public static void main(String[] args) throws Exception {
