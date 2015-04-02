@@ -10,28 +10,24 @@ import com.google.gdata.data.spreadsheet.SpreadsheetEntry;
 import com.google.gdata.data.spreadsheet.WorksheetEntry;
 import com.google.gdata.util.ServiceException;
 
+import ele.extraction.domain.Candidate;
 import ele.extraction.india.conf.Config;
 
 public class InsertData {
 
 	public static final String SPREADSHEET_URL = "https://spreadsheets.google.com/feeds/spreadsheets/1wNIgVxkaH3u4CLeErBFKJBOAwFdIbpxkdbv7AffKtIo";
 
-	public static void main(String[] args) throws IOException, ServiceException {
-		SpreadsheetService service = new SpreadsheetService(
-				"Election Result Analysis");
+	public static void ingestData(Candidate cadidate) throws IOException, ServiceException {
+		SpreadsheetService service = new SpreadsheetService("Election Result Analysis");
 
-		service.setUserCredentials(Config.getCredentials().getUsername(),
-				Config.getCredentials().getPassword());
+		service.setUserCredentials(Config.getCredentials().getUsername(), Config.getCredentials().getPassword());
 
 		URL metafeedUrl = new URL(SPREADSHEET_URL);
 
-		SpreadsheetEntry spreadsheet = service.getEntry(metafeedUrl,
-				SpreadsheetEntry.class);
+		SpreadsheetEntry spreadsheet = service.getEntry(metafeedUrl, SpreadsheetEntry.class);
 
-		System.out.println(spreadsheet.getWorksheets().get(0).getTitle()
-				.getPlainText());
-		URL listFeedUrl = ((WorksheetEntry) spreadsheet.getWorksheets().get(0))
-				.getListFeedUrl();
+		System.out.println(spreadsheet.getWorksheets().get(0).getTitle().getPlainText());
+		URL listFeedUrl = ((WorksheetEntry) spreadsheet.getWorksheets().get(0)).getListFeedUrl();
 
 		// Creating a local representation of the new row.
 		ListEntry row = new ListEntry();
@@ -47,8 +43,7 @@ public class InsertData {
 		for (ListEntry entry : feed.getEntries()) {
 			System.out.println("new row");
 			for (String tag : entry.getCustomElements().getTags()) {
-				System.out.println("     " + tag + ": "
-						+ entry.getCustomElements().getValue(tag));
+				System.out.println("     " + tag + ": " + entry.getCustomElements().getValue(tag));
 			}
 		}
 	}

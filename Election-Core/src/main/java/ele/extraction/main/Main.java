@@ -10,7 +10,7 @@ import ele.extraction.util.WriteUtil;
 
 public class Main {
 	public static void main(String[] args) {
-		List<String> listOfCon = ReadUtil.geTRawText();
+		List<String> listOfCon = ReadUtil.getConstituencies();
 		for (String cons : listOfCon) {
 			try {
 				System.out

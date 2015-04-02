@@ -34,7 +34,7 @@ public class ReadUtil {
 		return parsedText;
 	}
 
-	public static List<String> geTRawText() {
+	public static List<String> getConstituencies() {
 		BufferedReader br = null;
 		List<String> constituency = new ArrayList<String>();
 		try {
