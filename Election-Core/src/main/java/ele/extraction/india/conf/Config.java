@@ -1,5 +1,7 @@
 package ele.extraction.india.conf;
 
+import ele.extraction.domain.Credentials;
+
 public class Config {
 	public static String getPath() {
 		String env = "mac";
@@ -16,5 +18,9 @@ public class Config {
 
 	public static String getWritePath() {
 		return "/Users/Dhanushanth/Google Drive/MSc Uni/CS5617 Data Science/Projects/Data Files/Csv/";
+	}
+
+	public static Credentials getCredentials() {
+		return new Credentials("xxxxx@gmail.com", "xxxxxx");
 	}
 }
