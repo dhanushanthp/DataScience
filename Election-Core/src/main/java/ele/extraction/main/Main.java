@@ -18,11 +18,11 @@ import ele.extraction.util.WriteUtil;
 
 public class Main {
 	public static void main(String[] args) {
-//		try {
-//			CreateWorkSheet.createWorkSheet();
-//		} catch (IOException | ServiceException e1) {
-//			e1.printStackTrace();
-//		}
+		try {
+			CreateWorkSheet.createWorkSheet();
+		} catch (IOException | ServiceException e1) {
+			e1.printStackTrace();
+		}
 		
 		List<String> listOfCon = ReadUtil.getConstituencies();
 		for (String cons : listOfCon) {
