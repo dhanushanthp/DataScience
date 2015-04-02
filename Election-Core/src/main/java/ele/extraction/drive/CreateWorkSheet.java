@@ -14,7 +14,7 @@ import java.util.*;
 
 public class CreateWorkSheet {
 	
-	public static void main(String[] args) throws AuthenticationException, MalformedURLException, IOException, ServiceException {
+	public static void createWorkSheet() throws AuthenticationException, MalformedURLException, IOException, ServiceException {
 
 		SpreadsheetService service = new SpreadsheetService("Indian Election Analysis");
 
@@ -50,13 +50,13 @@ public class CreateWorkSheet {
 
 			CellEntry cellEntry = new CellEntry(1, 1, "Constituency");
 			cellFeed.insert(cellEntry);
-			cellEntry = new CellEntry(1, 2, "Candidate Name");
+			cellEntry = new CellEntry(1, 2, "Candidate");
 			cellFeed.insert(cellEntry);
 			cellEntry = new CellEntry(1, 3, "Party");
 			cellFeed.insert(cellEntry);
-			cellEntry = new CellEntry(1, 4, "Valid Votes");
+			cellEntry = new CellEntry(1, 4, "ValidVotes");
 			cellFeed.insert(cellEntry);
-			cellEntry = new CellEntry(1, 5, "Candidate Votes");
+			cellEntry = new CellEntry(1, 5, "CandidateVotes");
 			cellFeed.insert(cellEntry);
 		}
 

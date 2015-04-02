@@ -19,14 +19,14 @@ import ele.extraction.util.ReadUtil;
  */
 public class DataExtract2004 {
 	static Scanner sc = new Scanner(System.in);
-	static String fileName = Config.getPath() + "1999.pdf";
+	static String fileName = Config.getPath() + Config.getYear() + ".pdf";
 	static ReadUtil readUtil = new ReadUtil();
 
 	public static void main(String[] args) throws Exception {
-		getText(fileName, "tamil nadu");
+		getText("tamil nadu");
 	}
 
-	private static void getText(String filePat, String state) throws IOException, FileNotFoundException {
+	public static void getText(String state) throws IOException, FileNotFoundException {
 		boolean stateChecker = false;
 		int countConstituency = 0;
 
@@ -79,7 +79,7 @@ public class DataExtract2004 {
 									+ c.getConstituency().getValidVotes() + ", " + c.getVotes());
 						} else {
 							System.out.println("This is : Valid Postal Ballots for each candidate in the PC");
-//							throw new RuntimeException();
+							// throw new RuntimeException();
 						}
 					}
 				}
@@ -103,8 +103,8 @@ public class DataExtract2004 {
 		String[] array = input.split("\\s");
 		String name = getAttributes(input, Types.NAME);
 		name = name.replace(",", "");
-		
-		//TODO Still having probelm.
+
+		// TODO Still having probelm.
 		int votes = Integer.parseInt(array[0].substring(0, 5));
 		String party = array[array.length - 1].toUpperCase();
 
@@ -135,18 +135,18 @@ public class DataExtract2004 {
 			end = size - 1;
 		} else if (type == Types.CONSTITUENCY) {
 			start = 0;
-			end = size-4;
+			end = size - 4;
 		}
 
 		String[] name = Arrays.copyOfRange(inputArray, start, end);
 
 		for (String string : name) {
-			if(string.contains("-")){
+			if (string.contains("-")) {
 				nameSt.append(string.split("-")[1] + " ");
-			}else if(string.contains("pc")){
+			} else if (string.contains("pc")) {
 				nameSt.append(string.replace("pc", "") + " ");
-			}else{
-			nameSt.append(string + " ");
+			} else {
+				nameSt.append(string + " ");
 			}
 		}
 

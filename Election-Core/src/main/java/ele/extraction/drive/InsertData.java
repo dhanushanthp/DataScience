@@ -10,14 +10,20 @@ import com.google.gdata.data.spreadsheet.SpreadsheetEntry;
 import com.google.gdata.data.spreadsheet.WorksheetEntry;
 import com.google.gdata.util.ServiceException;
 
-import ele.extraction.domain.Candidate;
 import ele.extraction.india.conf.Config;
 
 public class InsertData {
 
-	public static final String SPREADSHEET_URL = "https://spreadsheets.google.com/feeds/spreadsheets/1wNIgVxkaH3u4CLeErBFKJBOAwFdIbpxkdbv7AffKtIo";
+	public static final String SPREADSHEET_URL = "https://spreadsheets.google.com/feeds/spreadsheets/" + Config.getSpreadSheet();
 
-	public static void ingestData(Candidate cadidate) throws IOException, ServiceException {
+	public static void ingestData(String candidate, String state) throws IOException, ServiceException {
+		String[] candi = candidate.split(",");
+		String cons, candN, par, valV, canV;
+		cons = candi[0];
+		candN = candi[1];
+		par = candi[2];
+		valV = candi[3];
+		canV = candi[4];
 		SpreadsheetService service = new SpreadsheetService("Election Result Analysis");
 
 		service.setUserCredentials(Config.getCredentials().getUsername(), Config.getCredentials().getPassword());
@@ -26,14 +32,28 @@ public class InsertData {
 
 		SpreadsheetEntry spreadsheet = service.getEntry(metafeedUrl, SpreadsheetEntry.class);
 
-		System.out.println(spreadsheet.getWorksheets().get(0).getTitle().getPlainText());
-		URL listFeedUrl = ((WorksheetEntry) spreadsheet.getWorksheets().get(0)).getListFeedUrl();
+		URL FeedUrlTmp = null;
+
+		for (WorksheetEntry workSheet : spreadsheet.getWorksheets()) {
+			if (workSheet.getTitle().getPlainText().contains(state)) {
+				FeedUrlTmp = ((WorksheetEntry) workSheet).getListFeedUrl();
+				break;
+			}
+		}
+
+		URL listFeedUrl = FeedUrlTmp;
+
+		// System.out.println(spreadsheet.getWorksheets().get(0).getTitle().getPlainText());
+		// URL listFeedUrl = ((WorksheetEntry)
+		// spreadsheet.getWorksheets().get(0)).getListFeedUrl();
 
 		// Creating a local representation of the new row.
 		ListEntry row = new ListEntry();
-		row.getCustomElements().setValueLocal("Name", "Bob");
-		row.getCustomElements().setValueLocal("Age", "26");
-		row.getCustomElements().setValueLocal("Email", "bob@gmail.com");
+		row.getCustomElements().setValueLocal("Constituency", cons);
+		row.getCustomElements().setValueLocal("Candidate", candN);
+		row.getCustomElements().setValueLocal("Party", par);
+		row.getCustomElements().setValueLocal("ValidVotes", valV);
+		row.getCustomElements().setValueLocal("CandidateVotes", canV);
 
 		// Sending the new row for insertion into Work sheet.
 		row = service.insert(listFeedUrl, row);

@@ -5,9 +5,12 @@ import java.io.IOException;
 import java.util.Arrays;
 import java.util.Scanner;
 
+import com.google.gdata.util.ServiceException;
+
 import ele.extraction.domain.Candidate;
 import ele.extraction.domain.Constituency;
 import ele.extraction.domain.Types;
+import ele.extraction.drive.InsertData;
 import ele.extraction.india.conf.Config;
 import ele.extraction.util.ReadUtil;
 
@@ -19,14 +22,14 @@ import ele.extraction.util.ReadUtil;
  */
 public class DataExtract1998 {
 	static Scanner sc = new Scanner(System.in);
-	static String fileName = Config.getPath() + "1998.pdf";
+	static String fileName = Config.getPath() + Config.getYear() + ".pdf";
 	static ReadUtil readUtil = new ReadUtil();
 
 	public static void main(String[] args) throws Exception {
-		getText(fileName, "andhra pradesh");
+		getText("uttar pradesh");
 	}
 
-	private static void getText(String filePat, String state) throws IOException, FileNotFoundException {
+	public static void getText(String state) throws IOException, FileNotFoundException {
 		boolean stateChecker = false;
 		int countConstituency = 0;
 
@@ -45,7 +48,7 @@ public class DataExtract1998 {
 				String lineByLine = lines[i].toLowerCase().trim();
 
 				// Enable when constituency found
-				if (lineByLine.startsWith(state.toLowerCase()) && lines[i+1].toLowerCase().trim().startsWith("constituency")) {
+				if (lineByLine.startsWith(state.toLowerCase()) && lines[i + 1].toLowerCase().trim().startsWith("constituency")) {
 					stateChecker = true;
 				}
 				if (stateChecker) {
@@ -77,8 +80,13 @@ public class DataExtract1998 {
 							constitency.setTotalElectors(totalElectors);
 							constitency.setValidVotes(validVotes);
 							Candidate c = buildStructure(lineByLine, constitency);
-							System.out.println(c.getConstituency().getName() + ", " + c.getName() + ", " + c.getParty() + ", "
-									+ c.getConstituency().getValidVotes() + ", " + c.getVotes());
+							try {
+								// Ingest to google sheet
+								InsertData.ingestData(c.getConstituency().getName() + "," + c.getName() + "," + c.getParty() + ","
+										+ c.getConstituency().getValidVotes() + "," + c.getVotes(), state);
+							} catch (ServiceException e) {
+								e.printStackTrace();
+							}
 						} else {
 							throw new RuntimeException();
 						}
