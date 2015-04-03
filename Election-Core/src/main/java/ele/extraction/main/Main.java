@@ -18,11 +18,11 @@ import ele.extraction.util.WriteUtil;
 
 public class Main {
 	public static void main(String[] args) {
-		try {
-			CreateWorkSheet.createWorkSheet();
-		} catch (IOException | ServiceException e1) {
-			e1.printStackTrace();
-		}
+//		try {
+//			CreateWorkSheet.createWorkSheet();
+//		} catch (IOException | ServiceException e1) {
+//			e1.printStackTrace();
+//		}
 		
 		List<String> listOfCon = ReadUtil.getConstituencies();
 		for (String cons : listOfCon) {
@@ -32,7 +32,7 @@ public class Main {
 					DataExtract2014_2009.getText(cons);
 				} else if (Config.getYear().equals("1998")) {
 					DataExtract1998.getText(cons);
-				} else if (Config.getYear().equals("2004")) {
+				} else if (Config.getYear().equals("2004") || Config.getYear().equals("1999")) {
 					DataExtract2004.getText(cons);
 				} else {
 					DataExtract1996.getText(cons);

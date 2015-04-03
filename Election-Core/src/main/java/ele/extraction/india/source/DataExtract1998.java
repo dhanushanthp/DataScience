@@ -74,7 +74,7 @@ public class DataExtract1998 {
 						countConstituency++;
 					}
 
-					if (lineByLine.contains("bjp") || lineByLine.contains("inc")) {
+					if (lineByLine.contains(" bjp ") || lineByLine.contains(" inc ")) {
 						if (isInteger(lineByLine)) {
 							Constituency constitency = new Constituency(constituency);
 							constitency.setTotalElectors(totalElectors);
@@ -87,8 +87,9 @@ public class DataExtract1998 {
 							} catch (ServiceException e) {
 								e.printStackTrace();
 							}
+							System.out.println(c.getConstituency().getName() + "," + c.getName() + "," + c.getParty() + "," + c.getConstituency().getValidVotes() + "," + c.getVotes());
 						} else {
-							throw new RuntimeException();
+//							throw new RuntimeException();
 						}
 					}
 				}

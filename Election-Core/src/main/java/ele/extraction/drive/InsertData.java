@@ -58,14 +58,14 @@ public class InsertData {
 		// Sending the new row for insertion into Work sheet.
 		row = service.insert(listFeedUrl, row);
 
-		// Printing all entries from Work sheet
-		ListFeed feed = (ListFeed) service.getFeed(listFeedUrl, ListFeed.class);
-		for (ListEntry entry : feed.getEntries()) {
-			System.out.println("new row");
-			for (String tag : entry.getCustomElements().getTags()) {
-				System.out.println("     " + tag + ": " + entry.getCustomElements().getValue(tag));
-			}
-		}
+//		// Printing all entries from Work sheet
+//		ListFeed feed = (ListFeed) service.getFeed(listFeedUrl, ListFeed.class);
+//		for (ListEntry entry : feed.getEntries()) {
+//			System.out.println("new row");
+//			for (String tag : entry.getCustomElements().getTags()) {
+//				System.out.println("     " + tag + ": " + entry.getCustomElements().getValue(tag));
+//			}
+//		}
 	}
 
 }

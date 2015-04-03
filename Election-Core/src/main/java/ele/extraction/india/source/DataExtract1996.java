@@ -73,7 +73,7 @@ public class DataExtract1996 {
 						countConstituency++;
 					}
 
-					if (lineByLine.contains("bjp") || lineByLine.contains("inc")) {
+					if (lineByLine.contains(" bjp ") || lineByLine.contains(" inc ")) {
 						if (isInteger(lineByLine)) {
 							Constituency constitency = new Constituency(constituency);
 							constitency.setTotalElectors(totalElectors);
@@ -83,6 +83,8 @@ public class DataExtract1996 {
 								// Ingest to google sheet
 								InsertData.ingestData(c.getConstituency().getName() + "," + c.getName() + "," + c.getParty() + ","
 										+ c.getConstituency().getValidVotes() + "," + c.getVotes(), state);
+								System.out.println(c.getConstituency().getName() + "," + c.getName() + "," + c.getParty() + ","
+										+ c.getConstituency().getValidVotes() + "," + c.getVotes());
 							} catch (ServiceException e) {
 								e.printStackTrace();
 							}

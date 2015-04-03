@@ -1,6 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=US-ASCII"
 	pageEncoding="US-ASCII"%>
-<%@page import="org.project.main.Generate"%>
+<%@page import="ele.extraction.drive.Generate"%>
 <%@page import="java.util.List"%>
 <%
 	String year = request.getParameter("year");
@@ -51,8 +51,6 @@ path:hover {
 					<select id="year" class="show-tick form-control" name="year">
 						<option value="2014" selected="selected">2014</option>
 						<option value="2009">2009</option>
-						<option value="2004">2004</option>
-						<option value="1999">1999</option>
 						<option value="1998">1998</option>
 						<option value="1996">1996</option>
 						<option value="1991">1991</option>
@@ -80,7 +78,7 @@ path:hover {
 			<div class="col-md-1"></div>
 			<div class="col-md-1"
 				style="background-color: #D4CBC3; text-align: center; border: 2px; border-bottom-color: black;">
-				<strong>None</strong>
+				<strong>No Candidates Or Equal Seats</strong>
 			</div>
 		</div>
 		<div class="row">

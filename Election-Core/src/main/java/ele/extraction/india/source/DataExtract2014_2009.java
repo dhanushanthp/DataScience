@@ -27,7 +27,7 @@ public class DataExtract2014_2009 {
 	static ReadUtil readUtil = new ReadUtil();
 
 	public static void main(String[] args) throws Exception {
-		getText("bihar");
+		getText("uttar pradesh");
 	}
 
 	public static String getText(String state) throws IOException, FileNotFoundException {
@@ -131,7 +131,7 @@ public class DataExtract2014_2009 {
 	 */
 	private static String getResultAsCSV(String ele_cons_st, String[] lines, int i, String line, RequestObject req) {
 		StringBuffer result = new StringBuffer();
-		if (line.contains("bjp") || line.contains("inc")) {
+		if (line.contains(" bjp ") || line.contains(" inc ")) {
 			String[] split = ele_cons_st.split("\\s");
 			Constituency cons = new Constituency(getAttributes(ele_cons_st.split(":")[0].trim(), Types.CONSTITUENCY));
 			cons.setValidVotes(req.getValidVotes());
@@ -173,6 +173,9 @@ public class DataExtract2014_2009 {
 	 */
 	private static Candidate buildStructure(String input, Constituency constituency) {
 		String[] array = input.split("\\s\\s");
+		if(array.length < 7){
+			System.out.println(input);
+		}
 		String name = getAttributes(array[array.length - 7], Types.NAME);
 
 		// remove < , > from name.

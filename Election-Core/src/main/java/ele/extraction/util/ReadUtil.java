@@ -1,6 +1,7 @@
 package ele.extraction.util;
 
 import java.io.BufferedReader;
+import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.FileReader;
@@ -12,6 +13,8 @@ import org.apache.pdfbox.cos.COSDocument;
 import org.apache.pdfbox.pdfparser.PDFParser;
 import org.apache.pdfbox.pdmodel.PDDocument;
 import org.apache.pdfbox.util.PDFTextStripper;
+
+import ele.extraction.india.conf.Config;
 
 public class ReadUtil {
 	public String getRawText(String filePath, int startPage)
@@ -39,7 +42,9 @@ public class ReadUtil {
 		List<String> constituency = new ArrayList<String>();
 		try {
 			String sCurrentLine;
-			br = new BufferedReader(new FileReader("constituencies.txt"));
+			ClassLoader classLoader = ReadUtil.class.getClassLoader();
+			br = new BufferedReader(new FileReader(new File(classLoader
+					.getResource("constituency.list").getFile())));
 			while ((sCurrentLine = br.readLine()) != null) {
 				constituency.add(sCurrentLine);
 			}
@@ -56,12 +61,12 @@ public class ReadUtil {
 		return constituency;
 	}
 	
-	public static List<String> getConstituencies(String web) {
+	public static List<String> getResultData(String year) {
 		BufferedReader br = null;
 		List<String> constituency = new ArrayList<String>();
 		try {
 			String sCurrentLine;
-			br = new BufferedReader(new FileReader("/Users/Dhanushanth/git/election-india-analysis/Election-web/src/main/resources/constituency.list"));
+			br = new BufferedReader(new FileReader(Config.getResultPath() + year+".csv"));
 			while ((sCurrentLine = br.readLine()) != null) {
 				constituency.add(sCurrentLine);
 			}
@@ -77,8 +82,8 @@ public class ReadUtil {
 		}
 		return constituency;
 	}
-	
+
 	public static void main(String[] args) {
-		System.out.println(getConstituencies(""));
+		System.out.println(getResultData("2014"));
 	}
 }

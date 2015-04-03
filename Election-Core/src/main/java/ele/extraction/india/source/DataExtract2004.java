@@ -5,9 +5,12 @@ import java.io.IOException;
 import java.util.Arrays;
 import java.util.Scanner;
 
+import com.google.gdata.util.ServiceException;
+
 import ele.extraction.domain.Candidate;
 import ele.extraction.domain.Constituency;
 import ele.extraction.domain.Types;
+import ele.extraction.drive.InsertData;
 import ele.extraction.india.conf.Config;
 import ele.extraction.util.ReadUtil;
 
@@ -75,6 +78,9 @@ public class DataExtract2004 {
 							Constituency constitency = new Constituency(constituency);
 							constitency.setValidVotes(validVotes);
 							Candidate c = buildStructure(lineByLine, constitency);
+							// Ingest to google sheet
+							InsertData.ingestData(c.getConstituency().getName() + "," + c.getName() + "," + c.getParty() + ","
+									+ c.getConstituency().getValidVotes() + "," + c.getVotes(), state);
 							System.out.println(c.getConstituency().getName() + ", " + c.getName() + ", " + c.getParty() + ", "
 									+ c.getConstituency().getValidVotes() + ", " + c.getVotes());
 						} else {
@@ -90,6 +96,9 @@ public class DataExtract2004 {
 
 			}
 		} catch (IOException e) {
+			e.printStackTrace();
+		} catch (ServiceException e) {
+			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 	}
