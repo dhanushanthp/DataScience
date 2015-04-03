@@ -1,3 +1,8 @@
+<%@ page language="java" contentType="text/html; charset=US-ASCII"
+	pageEncoding="US-ASCII"%>
+<%
+	String year = request.getParameter("year");
+%>
 <html>
 <head>
 <meta charset="utf-8">
@@ -21,13 +26,14 @@ path:hover {
 	cursor: crosshair;
 }
 </style>
-<script type="text/javascript" src="lib/d3/d3.js"></script>
+
 <link rel="stylesheet"
 	href="http://maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap.min.css">
 
 <script src="http://code.jquery.com/jquery-2.1.3.min.js"></script>
 <script
 	src="http://maxcdn.bootstrapcdn.com/bootstrap/3.2.0/js/bootstrap.min.js"></script>
+<script type="text/javascript" src="lib/d3/d3.min.js"></script>
 <script type="text/javascript" src="lib/colorbrewer/colorbrewer.js"></script>
 <link type="text/css" rel="stylesheet" media="all"
 	href="lib/colorbrewer/colorbrewer.css">
@@ -38,7 +44,7 @@ path:hover {
 
 		<div class="row">
 			<form id="form1" action="index.jsp" method="GET">
-			<h4>Please select the year for Visual stats :</h4>
+				<h4>Please select the year for Visual stats :</h4>
 				<div class="col-md-8">
 					<select id="year" class="show-tick form-control" name="year">
 						<option value="" selected="selected" disabled>-- Please
@@ -57,11 +63,10 @@ path:hover {
 
 				<div class="col-md-4">
 					<input type="submit" name="Submit" class="btn btn-primary"
-						type="button" value="Generate">
+						type="button">
 				</div>
 			</form>
 		</div>
-
 		<div class="row">
 			<div class="col-md-8">
 				<svg xmlns="http://www.w3.org/2000/svg" viewBox="50 200 950 1100"
@@ -226,6 +231,10 @@ path:hover {
 			</div>
 		</div>
 	</div>
+	<script type="text/javascript">
+	var year = <%=year%>
+	console.log(year)
+	</script>
 	<script src="js/visualizer.js"></script>
 </body>
 </html>
