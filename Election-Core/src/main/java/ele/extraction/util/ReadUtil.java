@@ -55,4 +55,30 @@ public class ReadUtil {
 		}
 		return constituency;
 	}
+	
+	public static List<String> getConstituencies(String web) {
+		BufferedReader br = null;
+		List<String> constituency = new ArrayList<String>();
+		try {
+			String sCurrentLine;
+			br = new BufferedReader(new FileReader("/Users/Dhanushanth/git/election-india-analysis/Election-web/src/main/resources/constituency.list"));
+			while ((sCurrentLine = br.readLine()) != null) {
+				constituency.add(sCurrentLine);
+			}
+		} catch (IOException e) {
+			e.printStackTrace();
+		} finally {
+			try {
+				if (br != null)
+					br.close();
+			} catch (IOException ex) {
+				ex.printStackTrace();
+			}
+		}
+		return constituency;
+	}
+	
+	public static void main(String[] args) {
+		System.out.println(getConstituencies(""));
+	}
 }

@@ -49,9 +49,7 @@ path:hover {
 				<h4>Please select the year for Visual stats :</h4>
 				<div class="col-md-8">
 					<select id="year" class="show-tick form-control" name="year">
-						<option value="" selected="selected" disabled>-- Please
-							select the year --</option>
-						<option value="2014">2014</option>
+						<option value="2014" selected="selected">2014</option>
 						<option value="2009">2009</option>
 						<option value="2004">2004</option>
 						<option value="1999">1999</option>
@@ -251,8 +249,8 @@ path:hover {
 	</div>
 	<%
 		Generate gen = new Generate();
-		List<String> listBjp = gen.getBjpData(year);
-		List<String> listInc = gen.getIncData(year);
+			List<String> listBjp = gen.getBjpData(year);
+			List<String> listInc = gen.getIncData(year);
 	%>
 	<script type="text/javascript">
 		var bjpSeats =
