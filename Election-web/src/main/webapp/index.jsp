@@ -244,7 +244,7 @@ path:hover {
 
 			</div>
 		</div>
-		<a href="http://localhost:8080/Election-web/graph.html" onclick="window.open(this.href); return false;" onkeypress="window.open(this.href); return false;">Election Summary</a>
+		<a href="http://localhost:8080/Election-web/graph.html" onclick="window.open(this.href); return false;" onkeypress="window.open(this.href); return false;" style="font-size: 25px;">Election Summary</a>
 	</div>
 	<%
 		Generate gen = new Generate();
